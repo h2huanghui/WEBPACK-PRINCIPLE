@@ -42,7 +42,7 @@
   }
 
   __webpack_require__.e = function (chunkId) { //title
-    let promises = []; //先声明一个promise
+    // let promises = []; //先声明一个promise
     let installChunkData = installedChunks[chunkId] //取得老的代码数据
     let promise = new Promise(function (resolve, reject) {
       installChunkData = installedChunks[chunkId] = [resolve, reject] //installChunkData有两个参数,分别是resolve和reject
@@ -52,15 +52,18 @@
     var script = document.createElement('script') //创建一个脚本
     script.src = chunkId + '.bundle.js' //脚本的路径
     document.head.appendChild(script) //插入脚本
-    return Promise.all(promises)
+    return promise
+    // return Promise.all(promises)
   }
   var jsonArray = (window["webpackJsonp"] = window["webpackJsonp"] || [])
   //jsonArray=window["webpackJsonp"]=[] 第一次执行
   var oldJsonpFunction = jsonArray.push.bind(jsonArray) //绑定this,不管谁调用oldJsonpFunction方法,this都指向jsonArray
-  var parentJsonFunction = oldJsonpFunction //老数组的push方法存储一下
+ 
   //重写jsonArray的push方法,重置赋值为webpackJsonpCallback
   jsonArray.push = webpackJsonpCallback
-
+  // jsonpArray = jsonArray.slice();
+  // for (var i = 0; i < jsonpArray.length; i++) webpackJsonpCallback(jsonpArray[i]);
+  var parentJsonFunction = oldJsonpFunction //老数组的push方法存储一下
   return __webpack_require__('./src/index.js')
 
 })({
